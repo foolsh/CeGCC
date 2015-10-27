@@ -1,0 +1,248 @@
+2009-04-16  Johnny Willemsen  <jwillemsen@remedy.nl>
+
+	* profile/profil.c : Change __arm__ #ifdefs to UNDER_CE so they work
+	on x86 too.
+
+2008-01-13  Danny Backx  <dannybackx@users.sourceforge.net>
+
+	* profile/config.sub profile/Makefile.in : Adjust so arm-cegcc and
+	arm-mingw32ce will also work.
+
+2006-12-30  Danny Backx  <dannybackx@users.sourceforge.net>
+
+	* configure.in profile/Makefile.in profile/configure.in : Avoid use of
+	CFLAGS to pass -DNO_UNDERSCORES.
+
+2006-12-30  Danny Backx  <dannybackx@users.sourceforge.net>
+
+	* profile : Create a profile/profile tree as a copy of the
+	mingw/profile tree.
+	* profile/gmon.c : Rewrite to avoid stdio, use native WinCE I/O
+	instead. Stdio doesn't work reliably in these conditions (maybe due to
+	the use of an atexit handler).
+
+2006-12-19  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* dllmain.c: Call DisableThreadLibraryCalls on DLL_PROCESS_ATTACH.
+
+2006-11-27  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* Makefile.in: Adjust so mingw32ce uses crt3.o and dllcrt3.o.
+	* dllcrt1.c: Remove extra space in comment.
+	* crt3.c: Rename from crt1_ce.c.
+
+2006-11-27  Kevin O'Connor  <kevin@koconnor.net>
+
+	* crt1_ce.c: New file. Implement WinMainCRTStartup for CE
+	programs in its own CE specific file.
+	* winmain_ce.c: New file. Implement a WinMain function that calls
+	main, for those CE programs that define main instead of WinMain.
+	* Makefile.in: Modify so that these two new CE specific files are
+	only built for mingw32ce.
+	* crt1.c, init.c, main.c: Revert them back to their x86 MinGW
+	originals.
+
+2006-11-19  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* include/stdio.h (rmtmp): Fix typo.
+
+2006-11-19  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* mingwex/wince/unlink.c (unlink): New function, implementing an
+	alias for the underscored version.
+	* mingwex/wince/read.c (read): Likewise.
+	* mingwex/wince/write.c (write): Likewise.
+
+2006-11-16  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* moldname.def.in (open, lseek, read, write): Don't export on
+	coredll.dll.
+	* mingwex/wince/open.c (vopen): Rename from _open, and made
+	static.
+	* mingwex/wince/open.c (open, _open): New functions.
+	* mingwex/wince/lseek.c (lseek): New function, implementing an
+	alias for the underscored version.
+	* mingwex/wince/fdopen.c (fdopen): Likewise.
+
+2006-11-13  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* profile/profile.h: Use __arm__ instead of ARM.
+	* profile/profil.c: Likewise.
+
+2006-11-12  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* include/unistd.h: Hide ftruncate.
+
+2006-11-12  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* mingwex/wince/lseek.c: Handle invalid whence.
+
+2006-11-12  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* mingwex/wince/close.c: New file.
+	* mingwex/Makefile.in (WINCE_DISTFILES): Add close.c.
+	(WINCE_OBJS): Add close.o.
+
+2006-11-11  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* mingwex/wince/open.c (open): Rename to _open.
+	* mingwex/wince/lseek.c (lseek): Rename to _lseek.
+	* mingwex/wince/fdopen.c (fdopen): Rename to _fdopen.
+	* mingwex/wince/read.c (read): Rename to _read.
+	* mingwex/wince/write.c (write): Rename to _write.
+	* include/fcntl.h: Enable file.
+	* include/io.h (_open, open, lseek, _lseek, 
+	read, _read, write, _write): Unhide.
+	* include/stdio.h (fdopen, _fdopen): Unhide.
+	* include/unistd.h: Enable file.
+	* moldname.def.in (open, lseek, read, write): Unhide.
+
+2006-11-11  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* mingwex/Makefile.in (WINCE_DISTFILES): Add fdopen.c, read.c, write.c,
+	open.c and lseek.c.
+	(WINCE_OBJS): Add fdopen.o, read.o, write.o, open.o and lseek.o.
+	* mingwex/wince/open.c: New file.
+	* mingwex/wince/lseek.c: New file.
+	* mingwex/wince/fdopen.c: New file.
+	* mingwex/wince/read.c: New file.
+	* mingwex/wince/write.c: New file.
+
+2006-11-03  Danny Backx  <dannybackx@users.sourceforge.net>
+
+	* profile/gmon.c : Use the executable file name under CE to cook up
+	the file name that we put monitoring information in. This used to
+	be just "gmon.out", now if you run /apps/m1.exe it'll be /apps/m1.gmo
+
+	* atexit.c, include/wctype.h, include/stdio.h, include/ctype.h,
+	profile/configure, profile/gmon.c, profile/configure.in,
+	profile/profile.h : Port this code to both arm-wince-mingw32ce and
+	arm-wince-cegcc .
+
+2006-10-22  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* configure.in [AC_CONFIG_SUBDIRS]: Add mingwex.
+	* configure : Regenerate.
+	* mingwex/Makefile.in (VPATH): Add wince subdir.
+	(WINCE_DISTFILES): New.
+	(WINCE_OBJS): New.
+	(LIB_OBJS): Special case for wince. Build WINCE_OBJS.
+	(dist): Install WINCE_DISTFILES.
+	* mingwex/wince: New subdir.
+	* mingwex/wince/time.c: New file.
+	* mingwex/wince/freopen.c: New file.
+	* mingwex/wince/unlink.c: New file.
+	* mingwex/wince/tempnam.c: New file.
+	* mingwex/wince/wcsftime.c: New file.
+	* mingwex/wince/gmtime.c: New file.
+	* mingwex/wince/asctime.c: New file.
+	* mingwex/wince/mktime.c: New file.
+	* mingwex/wince/localtime.c: New file.
+	* mingwex/wince/strftime.c: New file.
+	* include/time.h (time, mktime, asctime, 
+	ctime, gmtime, localtime, strftime, wcsftime): Expose on __COREDLL__.
+	* include/stdio.h (freopen, _tempnam, 
+	tempnam, _wtempnam): Likewise.
+	* include/io.h: Expose the header. Needed for unlink.
+	(_unlink, unlink): Expose functions on __COREDLL__.
+
+2006-10-22  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* test_headers.c: Adapt to __COREDLL__.
+
+2006-10-22  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* include/stdio.h (puts) [__COREDLL__]: Add missing return.
+
+2006-10-19  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* include/setjmp.h (_JBLEN) : Set to 11 on ARM.
+
+2006-10-18  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* include/setjmp.h (setjmp) : Coredll.dll has setjmp not _setjmp.
+	* include/stdio.h : Minor cleanup.
+
+2006-10-18  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* include/stdio.h : Expose fileno. We have it on libceoldname.
+
+2006-10-17  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* __dllonexit : Delete. Code merged into ...
+	* atexit.c : ... this.
+	Fix filename comment.
+	Don't include __dllonexit.c.
+	(__atexit_first) : New function.
+	(__atexit_init): New function.
+	(proc_exit_chain) : Delete.
+	(__dllexit) : New function, copied from crt1.c.
+	(__dllonexit) : New function.
+	(_cexit) : Call __dllexit.
+	* Makefile.in (dllcrt1.o, dllcrt2.o, atexit.o) : Remove
+	dependency on __dllonexit.c.
+	* dllcrt1.c : Don't implement a private atexit list on
+	__COREDLL__, since the atexit implementation there is already
+	image private.
+	(DllMainCRTStartup) : Call __atexit_init. Use __atexit_first to
+	get to the private first_atexit.
+	(__dll_exit) : Hide on __COREDLL__.
+	Don't include __dllonexit.c.
+	* crt1.c (MainCRTStartup) : Call __atexit_init.
+
+2006-10-17  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* include/fcntl.h : Hide the file.
+	* include/direct.h : Hide the file.
+
+2006-10-17  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* profile/gcrt0.c : Remove __COREDLL__ hack.
+	* profile/gmon.c : Don't include fcnctl.h on mingw32ce.
+	* profile/Makefile.in : Add comment about coredll being CRT_ID 3.
+	(ALL_CRT0S) : Add gcrt3.o.
+	(gcrt3.o) : Add build rule.
+	* profile/configure.in : Handle mingw32ce.
+	* profile/configure : Regenerate.
+
+2006-10-16  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* include/io.h : Hide the file.
+	* include/signal.h : Hide the file better.
+	* include/errno.h : Likewise.
+	* include/stdio.h (_fileno) : Return void* instead of int, as reported
+	by MSVC warning logs, and as hinted here (mind the line break):
+	    http://msdn.microsoft.com/library/default.asp?url=/library/en-us/\
+	    dv_wcecrt4/html/erlrfusfileno.asp :
+	    (Return Values
+	        _fileno returns the file handle.)
+	    Notice the wording: file *handle*, not file descriptor.
+	* atexit.c : Don't include io.h.
+	* __dllonexit.c : Likewise.
+	* dllcrt1.c : Don't include io.h on __COREDLL__.
+	* crt1.c : Likewise.
+	
+2006-10-15  Danny Backx  <dannybackx@sourceforge.net>
+	* configure.in: always configure profile subdirectory.
+	* configure: regenerated due to configure.in changes.
+	* profile/gcrt0.c profile/gmon.c profile/profil.h
+	profile/gmon.h profile/profil.c : changes to get this
+	to compile in our environments. Use only the existing
+	macros UNDER_CE, ARM. Don't use __COREDLL__ except in
+	one place where we needed to undefine it.
+
+2006-10-06  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* configure.in (DLL_ENTRY, MINGWEX_DIR) : Remove, not needed anymore.
+	* Makefile.in (MINGWEX_DIR) : Revert to using -Lmingwex.
+	* configure : Regenerate.
+
+2006-10-05  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* include/_mingw.h (__CRT_INLINE): Use __attribute__ ((__always_inline__))
+	on Windows CE.
+
+2006-10-05  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* include/ctype.h: Always use the inline versions of is*
+	on Windows CE.

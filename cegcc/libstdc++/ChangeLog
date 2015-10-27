@@ -1,0 +1,12 @@
+2009-08-15  Danny Backx  <dannybackx@users.sourceforge.net>
+
+	* Makefile : adapt to gcc-4.4 requirements.
+
+2007-06-04  Carsten Sørensen  <surfsmurf@rift.dk>
+
+	* Makefile (MAKEFLAGS): Override -j flag by always setting -j 1.
+
+2007-06-04  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* Makefile (PREFIX): Default to /opt/cegcc.
+	(TARGET): Set as arm-wince-cegcc.

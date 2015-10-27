@@ -1,0 +1,40 @@
+2009-10-25  Danny Backx  <dannybackx@users.sourceforge.net>
+
+	* build-cegcc.sh, build-mingw32ce.sh, build-x86.sh (build_binutils) :
+	add --disable-werror .
+
+2009-08-15  Danny Backx  <dannybackx@users.sourceforge.net>
+
+	* build-cegcc.sh : Disable building libssp.
+
+2009-06-03  Vincent Richomme <forumer@smartmobili.com>
+
+	* build-{mingw32ce,cegcc,x86}.sh : Replace tail --lines=+$L2 by tail
+	-n $L2. This is said to be more portable.
+
+2009-05-31  Danny Backx  <dannybackx@users.sourceforge.net>
+
+	* build-x86.sh : Copy Stefans patch to this script.
+
+2009-05-27  Stefan Klug  <Klug.Stefan@gmx.de>
+
+	* build-mingw32ce.sh : Get the old gcc to build if gcc_src=gcc is
+	supplied.
+
+2009-05-15  Danny Backx  <dannybackx@users.sourceforge.net>
+
+	* build-cegcc.sh, build-x86.sh: Apply Geoffroys work on these scripts too.
+
+2009-05-15  Geoffroy Couprie  <geal@videolan.org>
+
+	* build-mingw32ce.sh: Add support for specifying --host.
+
+2009-05-15  Danny Backx  <dannybackx@users.sourceforge.net>
+
+	* build-mingw32ce.sh, build-cegcc.sh, build-x86.sh (build_w32api) :
+	Create a cegcc.h file.
+
+2009-02-07  Pedro Alves  <pedroalves@users.sourceforge.net>
+
+	* build-cegcc.sh (BASE_DIRECTORY): Step one level down.
+	* build-mingw32ce.sh (BASE_DIRECTORY): Likewise.

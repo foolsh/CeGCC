@@ -1,0 +1,24 @@
+Versions of the subdirectories below are:
+
+- gcc 4.4.0 (released April 2009) from
+
+	ftp://ftp.gnu.org/pub/gnu/gcc/gcc-4.4.0
+	gcc-core-4.4.0.tar.bz2
+	gcc-g++-4.4.0.tar.bz2
+
+- newlib 1.14.0
+
+	ftp://sources.redhat.com/pub/newlib/index.html
+	ftp://sources.redhat.com/pub/newlib/newlib-1.14.0.tar.gz
+
+- binutils from CVS, 16 October 2009 (just after binutils 2.20)
+
+	cvs -d :pserver:anoncvs@sourceware.org:/cvs/src ...
+
+- w32api from cvs, 6 February 2009
+
+	cvs -d :pserver:anoncvs@cygwin.com:/cvs/src/winsup/w32api ...
+
+- mingw from cvs, 6 February 2009
+
+	cvs -d :pserver:anoncvs@cygwin.com:/cvs/src/winsup/mingw ...

@@ -1,0 +1,111 @@
+2010-01-02  Danny Backx  <dannybackx@users.sourceforge.net>
+
+	* libc/sys/wince/cefixpath.c(XCEFixPathA): Fix for bug 2912803.
+
+2009-04-28  Danny Backx  <dannybackx@users.sourceforge.net>
+
+	* configure, configure.in : recognize more targets.
+
+2009-04-28  Ismail Khatib  <ikhatib@imail.de>
+
+	* configure, configure.in : Make it recognize newer versions of
+	texinfo (4.9 was recognized, 4.13 not).
+
+2008-10-09  Pawel Veselov  <pawel.veselov@gmail.com>
+
+	newlib/
+	* libc/sys/wince/trace.c (__trace_closed): New.
+	(get_level_name): New.
+	(WCETRACE): Rename to...
+	(__WCETrace): ... this.
+	(WCETRACESET): Do not change the trace level if the tracing
+	facilities have been closed.
+	(WCETRACECLOSE): Print out a message that the tracing has closed.
+	Reset tracing level to 0 after closing.
+	(__WCETrace): Print out the tracing level along with the message.
+	* libc/sys/wince/sys/wcetrace.h (WCETRACE): Define.
+	(WCETRACE): Rename to ...
+	(__WCETrace): ... this.
+	(WCETRACING): Define.
+	* libc/sys/wince/io.c (_write_r): When tracing out stdio/stderr
+	buffer, send out as many bytes as are in the buffer, instead of
+	using zero termination.
+
+2008-10-04  Pawel Veselov  <pawel.veselov@gmail.com>
+
+	newlib/
+	* libc/sys/wince/sys/shared.h (_shared_getshowwindow): Redefine to
+	include _SHMBLK argument.
+	* libc/sys/wince/sys/shared.h (_shared_getenvironblk): Redefine to
+	return int.  Add a comment explaining what the function does.
+	* libc/sys/wince/startup.c (inherit_parent): Don't call
+	_shared_getenvblk there, it's called somewhere else.
+	* libc/sys/wince/env.c (_initenv): Use new _shared_getenvironblk
+	semantics.
+	* libc/sys/wince/spawn.c (_spawnv, _spawnvp, _newlib_pre_spawn):
+	Use correct function name.
+	* libc/sys/wince/shared.c: Rename _shared_setenvblk to
+	_shared_setenvironblk to match the header file definition.
+	* libc/sys/wince/shared.c (_shared_getenvironblk): Allocate memory
+	for the copy of the shared environment block, and return the
+	number of variables found.
+
+2008-09-24  Pedro Alves  <pedroalves@users.sourceforce.net>
+
+	* config.sub: Add cegcc support.
+	* configure.in: Adjust to allow arm-cegcc.
+	* configure: Regenerate.
+
+	newlib/
+	* configure.host: Adjust to allow arm-cegcc.
+
+2008-09-12  Pawel Veselov <pawel.veselov@gmail.com>
+        * newlib/newlib/libc/include/stdlib.h : added realpath() declaration
+        * newlib/libc/sys/wince/Makefile.in newlib/libc/sys/wince/Makefile.am :
+          compile realpath.c
+        * newlib/libc/sys/wince/sys/unistd.h : declare fdatasync()
+        * newlib/libc/sys/wince/realpath.c : defines realpath(), Linux compliant
+        * newlib/libc/sys/wince/getcwd.c : buffer is now allocated if NULL.
+          ENOENT is returned if current directory doesn't exist
+
+2008-08-29  Pawel Veselov <pawel.veselov@gmail.com>
+	* newlib/libc/sys/wince/io.c (fsync, fdatasync) : Implement.
+	* newlib/libc/sys/wince/sys/io.h newlib/libc/sys/wince/io.c
+	newlib/libc/sys/wince/stat.c : Add critical section parameter
+	to FDCHECK to prevent deadlock when FDCHECK returns.
+
+2008-06-10  Danny Backx  <dannybackx@users.sourceforge.net>
+
+	* newlib/libc/include/stdio.h (P_tmpdir) : Point to a directory that
+	exists on CE, not /tmp.
+
+2007-12-23  Pavel Chernikov <pchernik@gmail.com>
+
+	* newlib/libc/sys/wince/sys/dirent.h (readdir_r) : Add declaration.
+
+2007-06-20  Danny Backx  <dannybackx@users.sourceforge.net>
+
+	* newlib/libc/sys/wince/startup.c (_eh_handler) : Add code to call new
+	function _Wince_Log instead of printf statements that often go
+	nowhere.
+	* newlib/libc/sys/wince/startup.c (_Wince_Log) : New function that can
+	be configured at runtime to either print to stdout or a file or to pop
+	up a dialog window.
+	* newlib/libc/sys/wince/startup.c (_get_registry_debug,
+	_get_registry_debugflag) : New functions to figure out where the user
+	wants _Wince_Log to put its output.
+	* newlib/libc/sys/wince/startup.h : New file to declare _Wince_Log.
+
+2006-12-29  Danny Backx  <dannybackx@users.sourceforge.net>
+
+	* newlib/libc/sys/wince/startup.c : Call ExitProcess instead of
+	TerminateProcess.
+
+2006-10-10  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* configure.in : Add target-libgloss to $noconfigdirs.
+	* configure : Regenerate.
+
+2006-10-10  Pedro Alves  <pedro_alves@portugalmail.pt>
+
+	* configure: Regenerate with autoconf2.13.
