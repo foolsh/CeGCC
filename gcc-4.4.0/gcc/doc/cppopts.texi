@@ -758,8 +758,8 @@ Replacement:      [    ]    @{    @}    #    \    ^    |    ~
 Enable special code to work around file systems which only permit very
 short file names, such as MS-DOS@.
 
-@itemx --help
-@itemx --target-help
+@item --help
+@item --target-help
 @opindex help
 @opindex target-help
 Print text describing all the command line options instead of

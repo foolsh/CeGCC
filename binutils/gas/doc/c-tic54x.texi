@@ -108,11 +108,13 @@ In this example, x is replaced with SYM2; SYM2 is replaced with SYM1, and SYM1
 is replaced with x.  At this point, x has already been encountered
 and the substitution stops.
 
-@smallexample @code
+@smallexample
+@table @code
  .asg   "x",SYM1 
  .asg   "SYM1",SYM2
  .asg   "SYM2",x
  add    x,a             ; final code assembled is "add  x, a"
+@end table
 @end smallexample
 
 Macro parameters are converted to subsyms; a side effect of this is the normal
@@ -125,15 +127,19 @@ Substitution may be forced in situations where replacement might be
 ambiguous by placing colons on either side of the subsym.  The following
 code: 
 
-@smallexample @code
+@smallexample
+@table @code
  .eval  "10",x
 LAB:X:  add     #x, a
+@end table
 @end smallexample
 
 When assembled becomes:
 
-@smallexample @code
+@smallexample
+@table @code
 LAB10  add     #10, a
+@end table
 @end smallexample
 
 Smaller parts of the string assigned to a subsym may be accessed with
@@ -308,10 +314,12 @@ The @code{LDX} pseudo-op is provided for loading the extended addressing bits
 of a label or address.  For example, if an address @code{_label} resides
 in extended program memory, the value of @code{_label} may be loaded as
 follows:
-@smallexample @code
+@smallexample
+@table @code
  ldx     #_label,16,a    ; loads extended bits of _label
  or      #_label,a       ; loads lower 16 bits of _label
  bacc    a               ; full address is in accumulator A
+@end table
 @end smallexample
 
 @node TIC54X-Directives
@@ -344,7 +352,7 @@ Assign @var{name} the string @var{string}.  String replacement is
 performed on @var{string} before assignment.
 
 @cindex @code{eval} directive, TIC54X
-@itemx .eval @var{string}, @var{name}
+@item .eval @var{string}, @var{name}
 Evaluate the contents of string @var{string} and assign the result as a
 string to the subsym @var{name}.  String replacement is performed on
 @var{string} before assignment. 
